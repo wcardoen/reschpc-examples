@@ -1,0 +1,11 @@
+module load myanaconda3
+
+# STEP 1: Create + submit your jobs
+python3 submit.py | tee submit.out
+grep 'VASP:' submit.out >& out.id.txt
+
+# STEP 2: Retrieve the files from the ReScale Cloud
+python3 getfiles.py out.id.txt | tee ret.out
+
+# STEP 3: Delete the files from the ReScale Cloud
+python3 delfiles.py out.id.txt | tee del.out
